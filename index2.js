@@ -22,6 +22,7 @@ const arr = [
 ];
 
 let score = 0;
+// let ani_dur = 4;
 let bgColTransparency = 0;
 let intervalID;
 paused = true;
@@ -63,13 +64,10 @@ pausebtn.addEventListener("click", () => {
 });
 // Start Btn
 startbtn.addEventListener("click", () => {
-  monster.style.visibility = "visible";
-  // Remove changed bg
-  container.classList.remove("change-background");
-  // Reset score, bgtransparency and ani_dur
+  monster.style.display = "block";
+  // Reset score, bgtransparency
   score = 0;
   bgColTransparency = 0;
-  ani_dur = 4;
   document.body.style.backgroundColor = `rgb(246,5,5, ${bgColTransparency}%)`;
   // Stop gameover music and hide gameover text
   audio_over.pause();
@@ -91,7 +89,7 @@ startbtn.addEventListener("click", () => {
 });
 
 // Add noon effect
-const nooneffect = () => {
+const noonEffect = () => {
   bgColTransparency = bgColTransparency + 10;
   console.log("Opacity", bgColTransparency);
   document.body.style.backgroundColor = `rgb(246,5,5, ${
@@ -100,30 +98,43 @@ const nooneffect = () => {
 };
 
 // Increase Difficulty
-let ani_dur = 4;
+
 const incDifficulty = () => {
   const animateMonster = document.querySelector(".animateMonster");
   const monsterPosX = Number.parseInt(getComputedStyle(monster).right);
-  // console.log(monsterPosX);
-  if (monsterPosX > 1400 && monsterPosX < 1440) {
+  let ani_dur = Number.parseFloat(
+    getComputedStyle(animateMonster).animationDuration
+  );
+  new_dur = ani_dur;
+  new_dur -= 0.1;
+  if (monsterPosX > 1400 && monsterPosX < 1440 && new_dur > 2.5) {
+    console.log("ani duration is", new_dur);
     changeMonster();
-    if (ani_dur > 2.5) {
-      animateMonster.style.right = "-10vw";
-      ani_dur = ani_dur - 0.1;
-      console.log("Inside if", ani_dur);
-      animateMonster.style.animationDuration = `${ani_dur}s`;
-    }
+    animateMonster.style.animationDuration = `${new_dur}s`;
   }
+};
+// Set High Score and Update it inside HTML
+
+const setHighscore = () => {
+  let parsedItem = JSON.parse(localStorage.getItem("score")) || 0;
+  highScore = parsedItem;
+  if (score > highScore) {
+    highScore = score;
+    console.log(highScore);
+    localStorage.setItem("score", JSON.stringify(highScore));
+  }
+  return highScore;
 };
 
 // Updates Score
 const updateScore = () => {
   score++;
-  scorebox.textContent = `Score: ${score}`;
   incDifficulty();
+  let newScore = setHighscore(score);
+  scorebox.textContent = `Score: ${score}| High Score: ${newScore}`;
   // Change bgs
   if (score % 50 === 0) {
-    nooneffect();
+    noonEffect();
   }
 };
 
@@ -147,7 +158,9 @@ const checkCollision = () => {
 
   // Check gameover
   if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
-    monster.style.visibility = "hidden";
+    const animateMonster = document.querySelector(".animateMonster");
+    animateMonster.style.animationDuration = `4s`;
+    monster.style.display = "none";
     console.log("Game over");
     clearInterval(intervalID);
     gameover.style.opacity = "1";
@@ -169,3 +182,8 @@ const changeMonster = () => {
   console.log(randInd);
   monster.style.backgroundImage = `url(${arr[randInd]})`;
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const highScore = localStorage.getItem("score") || 0;
+  scorebox.textContent = `Score: 0| High Score: ${highScore}`;
+});

@@ -51,21 +51,20 @@ body {
   align-items: center;
   border: 0.2rem solid white;
   border-radius: 1rem;
-  height: 3rem;
-  width: 8.5rem;
+  height: 4rem;
+  width: 22rem;
+  padding: 0.5rem;
   font-size: 1.4rem;
   margin: 1.5rem;
-  /* transition: all 0.6s ease; */
 }
 .game-overBox {
   opacity: 0;
   font-family: "Dancing Script", cursive;
-  margin: 1rem;
-  border-radius: 2rem;
+  position: absolute;
+  top: 4%;
+  left: 41%;
   font-size: 4rem;
   color: #ff0d00c9;
-  text-align: center;
-  padding: 1rem;
   transition: opacity 0.4s ease-in-out;
 }
 .playerBox {
@@ -82,7 +81,7 @@ body {
 }
 .monsterBox {
   /* visibility: visible; */
-  display: block;
+  /* display: block; */
   height: 8rem;
   width: 8rem;
   background-image: url(images/monster.png);
@@ -93,7 +92,7 @@ body {
   right: 1rem;
 }
 .animatePlayer {
-  animation: playerAni 1.0s ease-in-out;
+  animation: playerAni 1s ease-in-out;
 }
 
 @keyframes playerAni {
@@ -114,7 +113,7 @@ body {
 
 @keyframes monsAni {
   0% {
-    right: -10vw;
+    right: -30vw;
   }
   100% {
     right: 100vw;

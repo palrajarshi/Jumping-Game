@@ -22,6 +22,7 @@ const arr = [
 ];
 
 let score = 0;
+let ani_dur = 4;
 let bgColTransparency = 0;
 let intervalID;
 paused = true;
@@ -64,12 +65,9 @@ pausebtn.addEventListener("click", () => {
 // Start Btn
 startbtn.addEventListener("click", () => {
   monster.style.display = "block";
-  // Remove changed bg
-  container.classList.remove("change-background");
-  // Reset score, bgtransparency and ani_dur
+  // Reset score, bgtransparency
   score = 0;
   bgColTransparency = 0;
-  ani_dur = 4;
   document.body.style.backgroundColor = `rgb(246,5,5, ${bgColTransparency}%)`;
   // Stop gameover music and hide gameover text
   audio_over.pause();
@@ -100,16 +98,15 @@ const noonEffect = () => {
 };
 
 // Increase Difficulty
-let ani_dur = 4;
+
 const incDifficulty = () => {
   const animateMonster = document.querySelector(".animateMonster");
   const monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   // console.log(monsterPosX);
   if (monsterPosX > 1400 && monsterPosX < 1440) {
     changeMonster();
+    ani_dur = ani_dur - 0.1;
     if (ani_dur > 2.6) {
-      // animateMonster.style.right = "-10vw";
-      ani_dur = ani_dur - 0.1;
       console.log("Inside if", ani_dur);
       animateMonster.style.animationDuration = `${ani_dur}s`;
     }
@@ -182,3 +179,8 @@ const changeMonster = () => {
   console.log(randInd);
   monster.style.backgroundImage = `url(${arr[randInd]})`;
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const highScore = localStorage.getItem("score") || 0;
+  scorebox.textContent = `Score: 0| High Score: ${highScore}`;
+});
