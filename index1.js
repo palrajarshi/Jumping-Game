@@ -91,7 +91,7 @@ startbtn.addEventListener("click", () => {
 });
 
 // Add noon effect
-const nooneffect = () => {
+const noonEffect = () => {
   bgColTransparency = bgColTransparency + 10;
   console.log("Opacity", bgColTransparency);
   document.body.style.backgroundColor = `rgb(246,5,5, ${
@@ -123,7 +123,7 @@ const updateScore = () => {
   incDifficulty();
   // Change bgs
   if (score % 50 === 0) {
-    nooneffect();
+    noonEffect();
   }
 };
 
