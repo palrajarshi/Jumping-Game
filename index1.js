@@ -115,12 +115,25 @@ const incDifficulty = () => {
     }
   }
 };
+// Set High Score and Update it inside HTML
+
+const setHighscore = () => {
+  let parsedItem = JSON.parse(localStorage.getItem("score")) || 0;
+  highScore = parsedItem;
+  if (score > highScore) {
+    highScore = score;
+    console.log(highScore);
+    localStorage.setItem("score", JSON.stringify(highScore));
+  }
+  return highScore;
+};
 
 // Updates Score
 const updateScore = () => {
   score++;
-  scorebox.textContent = `Score: ${score}`;
   incDifficulty();
+  let newScore = setHighscore(score);
+  scorebox.textContent = `Score: ${score}| High Score: ${newScore}`;
   // Change bgs
   if (score % 50 === 0) {
     noonEffect();
