@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: red(246, 5, 5, 0%);
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  transition: background-color 1s ease;
+}
+.game-Container::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  opacity: 0.8;
+  background-image: url(images/bg.png);
+  height: 100vh;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: background-image 1s ease;
+}
+
+.change-background::before {
+  background-image: url(images/bgimg1.jpg);
+  transition: background-image 1s ease;
+}
+#btnbox {
+  margin: 1rem;
+  /* display: flex; */
+}
+.btn {
+  cursor: pointer;
+  font-size: 3rem;
+  border: none;
+  background: transparent;
+  color: white;
+  height: 4rem;
+  width: 4rem;
+}
+.game-Container {
+  display: flex;
+  justify-content: space-between;
+}
+.scoreBox {
+  display: flex;
+  color: rgb(236, 60, 89);
+  justify-content: center;
+  align-items: center;
+  border: 0.2rem solid white;
+  border-radius: 1rem;
+  height: 3rem;
+  width: 8.5rem;
+  font-size: 1.4rem;
+  margin: 1.5rem;
+  /* transition: all 0.6s ease; */
+}
+.game-overBox {
+  opacity: 0;
+  font-family: "Dancing Script", cursive;
+  margin: 1rem;
+  border-radius: 2rem;
+  font-size: 4rem;
+  color: #ff0d00c9;
+  text-align: center;
+  padding: 1rem;
+  transition: opacity 0.4s ease-in-out;
+}
+.playerBox {
+  height: 10rem;
+  width: 6rem;
+  background-image: url(images/player.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  bottom: 0rem;
+  /* bottom: 10rem; */
+  left: 9rem;
+}
+.monsterBox {
+  /* visibility: visible; */
+  display: block;
+  height: 8rem;
+  width: 8rem;
+  background-image: url(images/monster.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+}
+.animatePlayer {
+  animation: playerAni 1.0s ease-in-out;
+}
+
+@keyframes playerAni {
+  0% {
+    bottom: 0rem;
+  }
+  50% {
+    bottom: 10rem;
+  }
+  100% {
+    bottom: 0rem;
+  }
+}
+
+.animateMonster {
+  animation: monsAni 4s infinite linear;
+}
+
+@keyframes monsAni {
+  0% {
+    right: -10vw;
+  }
+  100% {
+    right: 100vw;
+  }
+}
+
+.pause-animation {
+  animation-play-state: paused;
+}
+.color-btn {
+  color: red;
+}
