@@ -109,6 +109,7 @@ body {
 
 .animateMonster {
   animation: monsAni 4s infinite linear;
+  transition: animation-duration 0.5s;
 }
 
 @keyframes monsAni {
@@ -116,7 +117,7 @@ body {
     right: -30vw;
   }
   100% {
-    right: 100vw;
+    right: 110vw;
   }
 }
 
@@ -149,17 +150,17 @@ body {
 }
 
 /* Invisibility powerup */
-.invisibilityAni{
+.invisibilityAni {
   animation: invisibility infinite 1.5s ease;
 }
 @keyframes invisibility {
-  0%{
-  opacity: 100%;
+  0% {
+    opacity: 100%;
   }
-  50%{
+  50% {
     opacity: 50%;
   }
-  100%{
+  100% {
     opacity: 100%;
   }
 }

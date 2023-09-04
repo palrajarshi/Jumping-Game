@@ -121,19 +121,23 @@ const incDifficulty = (score) => {
   );
   new_dur = ani_dur;
   new_dur -= 0.1;
-  console.log("Present Animation Duration(Mons)/Normal: ", getComputedStyle(animateMonster).animationDuration);
-  if (monsterPosX > 1400 && monsterPosX < 1440) {
+  console.log(
+    "Present Animation Duration(Mons)/Normal: ",
+    getComputedStyle(animateMonster).animationDuration
+  );
+  console.log("Monster Present classes: ", monster.classList);
+  if (monsterPosX > 1400 && monsterPosX < 1460) {
     changeMonster();
-    if(score >= 510){
-      console.log("score crossed 500")
+    if (score >= 580) {
+      console.log("score crossed 500");
       animateMonster.style.animationDuration = `2.5s`;
     }
-    if(score >= 810){
-      console.log("score crossed 760")
+    if (score >= 810) {
+      console.log("score crossed 760");
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score > 1250){
-      console.log("score crossed 1200")
+    if (score >= 1200) {
+      console.log("score crossed 1200");
       animateMonster.style.animationDuration = `1.5s`;
     }
     if (new_dur >= 2.9) {
@@ -175,14 +179,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  console.log("Monster X", monsterPosX);
-  console.log("Monster Y", monsterPosY);
-  console.log("Player X", playerPosX);
-  console.log("Player Y", playerPosY);
+  // console.log("Monster X", monsterPosX);
+  // console.log("Monster Y", monsterPosY);
+  // console.log("Player X", playerPosX);
+  // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  console.log("PosDiff", posDiff);
+  // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
