@@ -130,7 +130,7 @@ const incDifficulty = (score) => {
       console.log("score crossed 760")
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score > 1200){
+    if(score > 1150){
       console.log("score crossed 1200")
       animateMonster.style.animationDuration = `1.5s`;
     }
