@@ -22,7 +22,7 @@ const arr = [
 ];
 
 let score = 0;
-let ani_dur = 4;
+// let ani_dur = 4;
 let bgColTransparency = 0;
 let intervalID;
 paused = true;
@@ -102,14 +102,15 @@ const noonEffect = () => {
 const incDifficulty = () => {
   const animateMonster = document.querySelector(".animateMonster");
   const monsterPosX = Number.parseInt(getComputedStyle(monster).right);
-  // console.log(monsterPosX);
-  if (monsterPosX > 1400 && monsterPosX < 1440) {
+  let ani_dur = Number.parseFloat(
+    getComputedStyle(animateMonster).animationDuration
+  );
+  new_dur = ani_dur;
+  new_dur -= 0.1;
+  if (monsterPosX > 1400 && monsterPosX < 1440 && new_dur > 2.5) {
+    console.log("ani duration is", new_dur);
     changeMonster();
-    ani_dur = ani_dur - 0.1;
-    if (ani_dur > 2.6) {
-      console.log("Inside if", ani_dur);
-      animateMonster.style.animationDuration = `${ani_dur}s`;
-    }
+    animateMonster.style.animationDuration = `${new_dur}s`;
   }
 };
 // Set High Score and Update it inside HTML
@@ -157,6 +158,8 @@ const checkCollision = () => {
 
   // Check gameover
   if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
+    const animateMonster = document.querySelector(".animateMonster");
+    animateMonster.style.animationDuration = `4s`;
     monster.style.display = "none";
     console.log("Game over");
     clearInterval(intervalID);
