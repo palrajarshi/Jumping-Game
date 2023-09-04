@@ -76,12 +76,10 @@ body {
   background-position: center;
   position: absolute;
   bottom: 0rem;
-  /* bottom: 10rem; */
+  /* bottom: 15rem; */
   left: 9rem;
 }
 .monsterBox {
-  /* visibility: visible; */
-  /* display: block; */
   height: 8rem;
   width: 8rem;
   background-image: url(images/monster.png);
@@ -125,4 +123,8 @@ body {
 }
 .color-btn {
   color: red;
+}
+/* Increases Height of the Monsters (Added Dynamically */
+.incHeight{
+  bottom: 9rem;
 }
