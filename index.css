@@ -29,7 +29,7 @@ body {
 }
 #btnbox {
   margin: 1rem;
-  /* display: flex; */
+  display: flex;
 }
 .btn {
   cursor: pointer;
@@ -84,7 +84,7 @@ body {
 .monsterBox {
   height: 8rem;
   width: 8rem;
-  background-image: url(images/monster.png);
+  background-image: url(images/invcloak.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -130,3 +130,22 @@ body {
 .incHeight {
   bottom: 9rem;
 }
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .game-overBox {
+    top: 27%;
+    left: 33%;
+    font-size: 3rem;
+  }
+  .playerBox {
+    height: 6rem;
+    width: 3rem;
+  }
+  .monsterBox {
+    height: 5rem;
+    width: 5rem;
+  }
+}
+
+/* Invisibility powerup */
