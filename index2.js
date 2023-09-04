@@ -111,7 +111,7 @@ const noonEffect = () => {
 };
 
 //10. Increase Difficulty
-const incDifficulty = () => {
+const incDifficulty = (score) => {
   const animateMonster = document.querySelector(".animateMonster");
   const monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   let ani_dur = Number.parseFloat(
@@ -126,9 +126,13 @@ const incDifficulty = () => {
       console.log("score crossed 500")
       animateMonster.style.animationDuration = `2.5s`;
     }
-    if(score >= 760){
+    if(score >= 810){
       console.log("score crossed 760")
       animateMonster.style.animationDuration = `2s`;
+    }
+    if(score > 1200){
+      console.log("score crossed 1200")
+      animateMonster.style.animationDuration = `1.5s`;
     }
     if (new_dur > 2.9) {
       console.log("Present Animation Duration(Mons)/Decrease Phase: ", new_dur);
@@ -152,7 +156,7 @@ const setHighscore = () => {
 //12. Updates Score
 const updateScore = () => {
   score++;
-  incDifficulty();
+  incDifficulty(score);
   let newScore = setHighscore(score);
   scorebox.textContent = `Score: ${score}| High Score: ${newScore}`;
   // Change bgs
@@ -169,14 +173,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  // console.log("Monster X", monsterPosX);
-  // console.log("Monster Y", monsterPosY);
-  // console.log("Player X", playerPosX);
-  // console.log("Player Y", playerPosY);
+  console.log("Monster X", monsterPosX);
+  console.log("Monster Y", monsterPosY);
+  console.log("Player X", playerPosX);
+  console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  // console.log("PosDiff", posDiff);
+  console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -187,7 +191,7 @@ const checkCollision = () => {
   ) {
     console.log("Flying Object");
     monster.classList.add("incHeight");
-    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 240) {
+    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
   } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
