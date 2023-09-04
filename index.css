@@ -50,6 +50,7 @@ body {
   justify-content: center;
   align-items: center;
   border: 0.2rem solid white;
+  font-family: "Zilla Slab", serif;
   border-radius: 1rem;
   height: 4rem;
   width: 22rem;
@@ -62,9 +63,10 @@ body {
   font-family: "Dancing Script", cursive;
   position: absolute;
   top: 4%;
-  left: 41%;
+  left: 39%;
   font-size: 4rem;
-  color: #ff0d00c9;
+  color: #ff0000;
+  font-family: "Lilita One", cursive;
   transition: opacity 0.4s ease-in-out;
 }
 .playerBox {
@@ -125,6 +127,6 @@ body {
   color: red;
 }
 /* Increases Height of the Monsters (Added Dynamically */
-.incHeight{
+.incHeight {
   bottom: 9rem;
 }
