@@ -18,7 +18,7 @@ const arr = [
   "images/anemoslime.png",
   "images/xiao1.jpg",
   "images/monster.png",
-  "images/mons3.jpg",
+  "images/fungifly.jpg",
   "images/fungi.jpg",
 ];
 
@@ -26,18 +26,23 @@ const arr = [
 let score = 0;
 let bgColTransparency = 0;
 let intervalID;
-paused = true;
+let paused = true;
+let isAnimating = true;
 
 //5. Player Movement
 const movePlayer = (e) => {
-  console.log("Key code is", e.code);
-  if (e.code == "ArrowUp") {
-    audio_jump.currentTime = 0;
-    audio_jump.play();
-    player.classList.add("animatePlayer");
-    setTimeout(() => {
-      player.classList.remove("animatePlayer");
-    }, 1005);
+  console.log("Key code:", e.code);
+  if (isAnimating) {
+    if (e.code == "ArrowUp" || e.code == "Space") {
+      audio_jump.currentTime = 0;
+      audio_jump.play();
+      player.classList.add("animatePlayer");
+      isAnimating = false;
+      setTimeout(() => {
+        player.classList.remove("animatePlayer");
+        isAnimating = true;
+      }, 1005);
+    }
   }
 };
 
@@ -55,6 +60,7 @@ pausebtn.addEventListener("click", () => {
     player.classList.add("pause-animation");
     pausebtn.classList.add("color-btn");
     audio.pause();
+    isAnimating = false;
     paused = false;
   } else {
     intervalID = setInterval(updateScore, 60);
@@ -62,6 +68,7 @@ pausebtn.addEventListener("click", () => {
     player.classList.remove("pause-animation");
     pausebtn.classList.remove("color-btn");
     audio.play();
+    isAnimating = true;
     paused = true;
   }
 });
@@ -99,14 +106,14 @@ startbtn.addEventListener("click", () => {
 //9. Add noon effect
 const noonEffect = () => {
   bgColTransparency = bgColTransparency + 10;
-  console.log("Opacity", bgColTransparency);
+  console.log("Bg Opacity:", bgColTransparency);
   document.body.style.backgroundColor = `rgb(246,5,5, ${
     bgColTransparency % 100
   }%)`;
 };
 
 //10. Increase Difficulty
-const incDifficulty = () => {
+const incDifficulty = (score) => {
   const animateMonster = document.querySelector(".animateMonster");
   const monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   let ani_dur = Number.parseFloat(
@@ -114,10 +121,25 @@ const incDifficulty = () => {
   );
   new_dur = ani_dur;
   new_dur -= 0.1;
-  if (monsterPosX > 1400 && monsterPosX < 1440 && new_dur > 2.5) {
-    console.log("ani duration is", new_dur);
+  console.log("Present Animation Duration(Mons)/Normal: ", getComputedStyle(animateMonster).animationDuration);
+  if (monsterPosX > 1400 && monsterPosX < 1440) {
     changeMonster();
-    animateMonster.style.animationDuration = `${new_dur}s`;
+    if(score >= 500){
+      console.log("score crossed 500")
+      animateMonster.style.animationDuration = `2.5s`;
+    }
+    if(score >= 810){
+      console.log("score crossed 760")
+      animateMonster.style.animationDuration = `2s`;
+    }
+    if(score > 1150){
+      console.log("score crossed 1200")
+      animateMonster.style.animationDuration = `1.5s`;
+    }
+    if (new_dur > 2.9) {
+      console.log("Present Animation Duration(Mons)/Decrease Phase: ", new_dur);
+      animateMonster.style.animationDuration = `${new_dur}s`;
+    }
   }
 };
 
@@ -136,7 +158,7 @@ const setHighscore = () => {
 //12. Updates Score
 const updateScore = () => {
   score++;
-  incDifficulty();
+  incDifficulty(score);
   let newScore = setHighscore(score);
   scorebox.textContent = `Score: ${score}| High Score: ${newScore}`;
   // Change bgs
@@ -147,7 +169,6 @@ const updateScore = () => {
 
 //13. Check for Collision
 const checkCollision = () => {
-
   //13.1 Computed Positions of Monster and Player
   monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   monsterPosY = Number.parseInt(getComputedStyle(monster).bottom);
@@ -160,33 +181,38 @@ const checkCollision = () => {
   // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
-  posDiff = Math.abs(playerPosX - monsterPosX);
+  posDiff = (playerPosX - monsterPosX);
   // console.log("PosDiff", posDiff);
 
-  //13.3 Check Gameover
-  if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
-    const animateMonster = document.querySelector(".animateMonster");
-    animateMonster.style.animationDuration = `4s`;
-    monster.style.display = "none";
-    console.log("Game over");
-    clearInterval(intervalID);
-    gameover.style.opacity = "1";
-    audio.pause();
-    audio_over.currentTime = 0;
-    audio_over.play();
-    monster.classList.remove("animateMonster");
-    startbtn.disabled = false;
-    pausebtn.disabled = true;
+  //13.3 Check Gameover for diff monsters
+  if (
+    getComputedStyle(monster).backgroundImage ===
+      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/anemoslime.png")' ||
+    getComputedStyle(monster).backgroundImage ===
+      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")'
+  ) {
+    console.log("Flying Object");
+    monster.classList.add("incHeight");
+    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
+      gameOver();
+    }
+  } else if (posDiff >= -70 && posDiff < 60 && playerPosY < 115) {
+    gameOver();
   }
 };
 setInterval(checkCollision, 100);
 
 //14. Change Monster
 const changeMonster = () => {
+  // Checks if height is increased (for Anemo slime) and removes it
+  if (monster.classList.contains("incHeight")) {
+    console.log("Removing class incHeight");
+    monster.classList.remove("incHeight");
+  }
   monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   // console.log("posX", monsterPosX);
-  let randInd = Math.floor(Math.random() * 6);
-  console.log(randInd);
+  let randInd = Math.floor(Math.random() * arr.length);
+  console.log("Random Index Gen: ", randInd);
   monster.style.backgroundImage = `url(${arr[randInd]})`;
 };
 
@@ -195,3 +221,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const highScore = localStorage.getItem("score") || 0;
   scorebox.textContent = `Score: 0| High Score: ${highScore}`;
 });
+
+// 16. Gameover Function
+const gameOver = () => {
+  const animateMonster = document.querySelector(".animateMonster");
+  animateMonster.style.animationDuration = `4s`;
+  monster.style.display = "none";
+  console.log("Game over");
+  clearInterval(intervalID);
+  gameover.style.opacity = "1";
+  audio.pause();
+  audio_over.currentTime = 0;
+  audio_over.play();
+  monster.classList.remove("animateMonster");
+  startbtn.disabled = false;
+  pausebtn.disabled = true;
+};

@@ -33,7 +33,7 @@ let isAnimating = true;
 const movePlayer = (e) => {
   console.log("Key code:", e.code);
   if (isAnimating) {
-    if (e.code == "ArrowUp") {
+    if (e.code == "ArrowUp" || e.code == "Space") {
       audio_jump.currentTime = 0;
       audio_jump.play();
       player.classList.add("animatePlayer");
@@ -60,6 +60,7 @@ pausebtn.addEventListener("click", () => {
     player.classList.add("pause-animation");
     pausebtn.classList.add("color-btn");
     audio.pause();
+    isAnimating = false;
     paused = false;
   } else {
     intervalID = setInterval(updateScore, 60);
@@ -67,6 +68,7 @@ pausebtn.addEventListener("click", () => {
     player.classList.remove("pause-animation");
     pausebtn.classList.remove("color-btn");
     audio.play();
+    isAnimating = true;
     paused = true;
   }
 });
@@ -173,14 +175,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  console.log("Monster X", monsterPosX);
-  console.log("Monster Y", monsterPosY);
-  console.log("Player X", playerPosX);
-  console.log("Player Y", playerPosY);
+  // console.log("Monster X", monsterPosX);
+  // console.log("Monster Y", monsterPosY);
+  // console.log("Player X", playerPosX);
+  // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
-  posDiff = Math.abs(playerPosX - monsterPosX);
-  console.log("PosDiff", posDiff);
+  posDiff = (playerPosX - monsterPosX);
+  // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -194,7 +196,8 @@ const checkCollision = () => {
     if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
-  } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
+  } 
+  else if (posDiff >= -70 && posDiff < 60 && playerPosY < 115) {
     gameOver();
   }
 };

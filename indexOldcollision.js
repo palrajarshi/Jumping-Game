@@ -33,7 +33,7 @@ let isAnimating = true;
 const movePlayer = (e) => {
   console.log("Key code:", e.code);
   if (isAnimating) {
-    if (e.code == "ArrowUp") {
+    if (e.code == "ArrowUp" || e.code == "Space") {
       audio_jump.currentTime = 0;
       audio_jump.play();
       player.classList.add("animatePlayer");
@@ -60,6 +60,7 @@ pausebtn.addEventListener("click", () => {
     player.classList.add("pause-animation");
     pausebtn.classList.add("color-btn");
     audio.pause();
+    isAnimating = false;
     paused = false;
   } else {
     intervalID = setInterval(updateScore, 60);
@@ -67,6 +68,7 @@ pausebtn.addEventListener("click", () => {
     player.classList.remove("pause-animation");
     pausebtn.classList.remove("color-btn");
     audio.play();
+    isAnimating = true;
     paused = true;
   }
 });
@@ -111,7 +113,7 @@ const noonEffect = () => {
 };
 
 //10. Increase Difficulty
-const incDifficulty = () => {
+const incDifficulty = (score) => {
   const animateMonster = document.querySelector(".animateMonster");
   const monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   let ani_dur = Number.parseFloat(
@@ -119,10 +121,23 @@ const incDifficulty = () => {
   );
   new_dur = ani_dur;
   new_dur -= 0.1;
+  console.log("Present Animation Duration(Mons)/Normal: ", getComputedStyle(animateMonster).animationDuration);
   if (monsterPosX > 1400 && monsterPosX < 1440) {
     changeMonster();
-    if (new_dur > 2.5) {
-      console.log("Present Animation Duration(Mons): ", new_dur);
+    if(score >= 500){
+      console.log("score crossed 500")
+      animateMonster.style.animationDuration = `2.5s`;
+    }
+    if(score >= 810){
+      console.log("score crossed 760")
+      animateMonster.style.animationDuration = `2s`;
+    }
+    if(score > 1150){
+      console.log("score crossed 1200")
+      animateMonster.style.animationDuration = `1.5s`;
+    }
+    if (new_dur > 2.9) {
+      console.log("Present Animation Duration(Mons)/Decrease Phase: ", new_dur);
       animateMonster.style.animationDuration = `${new_dur}s`;
     }
   }
@@ -143,7 +158,7 @@ const setHighscore = () => {
 //12. Updates Score
 const updateScore = () => {
   score++;
-  incDifficulty();
+  incDifficulty(score);
   let newScore = setHighscore(score);
   scorebox.textContent = `Score: ${score}| High Score: ${newScore}`;
   // Change bgs
@@ -178,7 +193,7 @@ const checkCollision = () => {
   ) {
     console.log("Flying Object");
     monster.classList.add("incHeight");
-    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 240) {
+    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
   } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
