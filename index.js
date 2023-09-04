@@ -124,7 +124,7 @@ const incDifficulty = (score) => {
   console.log("Present Animation Duration(Mons)/Normal: ", getComputedStyle(animateMonster).animationDuration);
   if (monsterPosX > 1400 && monsterPosX < 1440) {
     changeMonster();
-    if(score >= 500){
+    if(score >= 510){
       console.log("score crossed 500")
       animateMonster.style.animationDuration = `2.5s`;
     }
@@ -132,7 +132,7 @@ const incDifficulty = (score) => {
       console.log("score crossed 760")
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score >= 1250){
+    if(score > 1250){
       console.log("score crossed 1200")
       animateMonster.style.animationDuration = `1.5s`;
     }
