@@ -132,11 +132,11 @@ const incDifficulty = (score) => {
       console.log("score crossed 760")
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score > 1150){
+    if(score >= 1250){
       console.log("score crossed 1200")
       animateMonster.style.animationDuration = `1.5s`;
     }
-    if (new_dur > 2.9) {
+    if (new_dur >= 2.9) {
       console.log("Present Animation Duration(Mons)/Decrease Phase: ", new_dur);
       animateMonster.style.animationDuration = `${new_dur}s`;
     }

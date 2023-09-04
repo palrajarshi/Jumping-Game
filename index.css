@@ -78,13 +78,13 @@ body {
   background-position: center;
   position: absolute;
   bottom: 0rem;
-  /* bottom: 15rem; */
+  /* bottom: 16rem; */
   left: 9rem;
 }
 .monsterBox {
   height: 8rem;
   width: 8rem;
-  background-image: url(images/invcloak.jpg);
+  background-image: url(images/monster.png);
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -149,3 +149,17 @@ body {
 }
 
 /* Invisibility powerup */
+.invisibilityAni{
+  animation: invisibility infinite 1.5s ease;
+}
+@keyframes invisibility {
+  0%{
+  opacity: 100%;
+  }
+  50%{
+    opacity: 50%;
+  }
+  100%{
+    opacity: 100%;
+  }
+}

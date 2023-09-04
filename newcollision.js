@@ -132,11 +132,11 @@ const incDifficulty = (score) => {
       console.log("score crossed 760")
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score > 1150){
+    if(score >= 1250){
       console.log("score crossed 1200")
       animateMonster.style.animationDuration = `1.5s`;
     }
-    if (new_dur > 2.9) {
+    if (new_dur >= 2.9) {
       console.log("Present Animation Duration(Mons)/Decrease Phase: ", new_dur);
       animateMonster.style.animationDuration = `${new_dur}s`;
     }
@@ -175,14 +175,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  // console.log("Monster X", monsterPosX);
-  // console.log("Monster Y", monsterPosY);
-  // console.log("Player X", playerPosX);
-  // console.log("Player Y", playerPosY);
+  console.log("Monster X", monsterPosX);
+  console.log("Monster Y", monsterPosY);
+  console.log("Player X", playerPosX);
+  console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
-  posDiff = (playerPosX - monsterPosX);
-  // console.log("PosDiff", posDiff);
+  posDiff = Math.abs(playerPosX - monsterPosX);
+  console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -196,7 +196,7 @@ const checkCollision = () => {
     if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
-  } else if (posDiff >= -70 && posDiff < 60 && playerPosY < 115) {
+  } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
     gameOver();
   }
 };

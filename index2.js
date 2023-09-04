@@ -20,6 +20,7 @@ const arr = [
   "images/monster.png",
   "images/fungifly.jpg",
   "images/fungi.jpg",
+  "images/invcloak.jpg",
 ];
 
 //4. Variable Declarations
@@ -28,6 +29,7 @@ let bgColTransparency = 0;
 let intervalID;
 let paused = true;
 let isAnimating = true;
+let isInvisible = false;
 
 //5. Player Movement
 const movePlayer = (e) => {
@@ -106,10 +108,10 @@ startbtn.addEventListener("click", () => {
 //9. Add noon effect
 const noonEffect = () => {
   bgColTransparency = bgColTransparency + 10;
-  console.log("Bg Opacity:", bgColTransparency);
   document.body.style.backgroundColor = `rgb(246,5,5, ${
     bgColTransparency % 100
   }%)`;
+  console.log("Bg Opacity:", bgColTransparency);
 };
 
 //10. Increase Difficulty
@@ -121,19 +123,22 @@ const incDifficulty = (score) => {
   );
   new_dur = ani_dur;
   new_dur -= 0.1;
-  console.log("Present Animation Duration(Mons)/Normal: ", getComputedStyle(animateMonster).animationDuration);
+  console.log(
+    "Present Animation Duration(Mons)/Normal: ",
+    getComputedStyle(animateMonster).animationDuration
+  );
   if (monsterPosX > 1400 && monsterPosX < 1440) {
     changeMonster();
-    if(score >= 500){
-      console.log("score crossed 500")
+    if (score >= 500) {
+      console.log("score crossed 500");
       animateMonster.style.animationDuration = `2.5s`;
     }
-    if(score >= 810){
-      console.log("score crossed 760")
+    if (score >= 810) {
+      console.log("score crossed 760");
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score > 1150){
-      console.log("score crossed 1200")
+    if (score > 1150) {
+      console.log("score crossed 1200");
       animateMonster.style.animationDuration = `1.5s`;
     }
     if (new_dur > 2.9) {
@@ -181,7 +186,7 @@ const checkCollision = () => {
   // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
-  posDiff = (playerPosX - monsterPosX);
+  posDiff = Math.abs(playerPosX - monsterPosX);
   // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
@@ -194,11 +199,26 @@ const checkCollision = () => {
     console.log("Flying Object");
     monster.classList.add("incHeight");
     if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
+        gameOver();
+    }
+  } else if (
+    getComputedStyle(monster).backgroundImage ===
+      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/invcloak.jpg")' &&
+    posDiff >= 0 &&
+    posDiff < 60 &&
+    playerPosY < 115
+  ) {
+    isInvisible = true;
+    window.addEventListener("keydown", triggerInv);
+  } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
+    if (isInvisible === true) {
+      setTimeout(() => {
+        isInvisible = false;
+        player.classList.remove("invisibilityAni");
+      }, 100);
+    } else {
       gameOver();
     }
-  } 
-  else if (posDiff >= -70 && posDiff < 60 && playerPosY < 115) {
-    gameOver();
   }
 };
 setInterval(checkCollision, 100);
@@ -237,4 +257,17 @@ const gameOver = () => {
   monster.classList.remove("animateMonster");
   startbtn.disabled = false;
   pausebtn.disabled = true;
+};
+
+// 17. Invisibility
+const triggerInv = (e) => {
+  if (e.code === "KeyE" && isInvisible === true) {
+    console.log(isInvisible);
+    console.log("E Pressed!");
+    player.classList.add("invisibilityAni");
+    setTimeout(() => {
+      isInvisible = false;
+      player.classList.remove("invisibilityAni");
+    }, 5000);
+  }
 };
