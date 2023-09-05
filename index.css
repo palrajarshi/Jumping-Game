@@ -85,7 +85,7 @@ body {
 .monsterBox {
   height: 8rem;
   width: 8rem;
-  background-image: url(images/powerfly.png);
+  background-image: url(images/monster.png);
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
