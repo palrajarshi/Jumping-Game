@@ -48,12 +48,12 @@ const audio_fly = document.getElementById("audio-fly");
 
 //3. Array Images
 const arr = [
-  // "images/qiqi.png",
-  // "images/anemoslime.png",
-  // "images/xiao1.jpg",
-  // "images/monster.png",
-  // "images/fungifly.jpg",
-  // "images/fungi.jpg",
+  "images/qiqi.png",
+  "images/anemoslime.png",
+  "images/xiao1.jpg",
+  "images/monster.png",
+  "images/fungifly.jpg",
+  "images/fungi.jpg",
   "images/powerfly.png",
 ];
 
@@ -171,7 +171,7 @@ const incDifficulty = (score) => {
     "Present Animation Duration(Mons)/Normal: ",
     getComputedStyle(animateMonster).animationDuration
   );
-  console.log("Monster Present classes: ", monster.classList);
+  // console.log("Monster Present classes: ", monster.classList);
   if (monsterPosX > 1400 && monsterPosX < 1490) {
     changeMonster();
     if (score >= 580) {
@@ -225,14 +225,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  // console.log("Monster X", monsterPosX);
-  // console.log("Monster Y", monsterPosY);
-  // console.log("Player X", playerPosX);
-  // console.log("Player Y", playerPosY);
+  console.log("Monster X", monsterPosX);
+  console.log("Monster Y", monsterPosY);
+  console.log("Player X", playerPosX);
+  console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  // console.log("PosDiff", posDiff);
+  console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -318,7 +318,7 @@ const stopFly = (e) => {
 const toggleFly = () => {
   onAir = true;
   gameover.innerHTML = `Press E to land`;
-  console.log("Power up active");
+  // console.log("Power up active");
   audio_fly.currentTime = 0;
   audio_fly.play();
   monster.style.visibility = "hidden";
@@ -327,7 +327,7 @@ const toggleFly = () => {
   isAnimating = false;
   gameover.style.opacity = "1";
   if (interval2) {
-    console.log("Cleared");
+    // console.log("Cleared");
     clearTimeout(interval2);
   }
 
