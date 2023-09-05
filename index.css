@@ -58,12 +58,12 @@ body {
   font-size: 1.4rem;
   margin: 1.5rem;
 }
-.game-overBox {
+.messageBox {
   opacity: 0;
   font-family: "Dancing Script", cursive;
-  position: absolute;
-  top: 4%;
-  left: 39%;
+  /* position: absolute; */
+  /* top: 4%; */
+  /* left: 39%; */
   font-size: 4rem;
   color: #ff0000;
   font-family: "Lilita One", cursive;
@@ -78,13 +78,14 @@ body {
   background-position: center;
   position: absolute;
   bottom: 0rem;
+  transition: bottom 0.7s ease;
   /* bottom: 16rem; */
   left: 9rem;
 }
 .monsterBox {
   height: 8rem;
   width: 8rem;
-  background-image: url(images/monster.png);
+  background-image: url(images/powerfly.png);
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -127,30 +128,14 @@ body {
 .color-btn {
   color: red;
 }
+
 /* Increases Height of the Monsters (Added Dynamically */
 .incHeight {
   bottom: 9rem;
 }
 
-/* Responsive */
-@media (max-width: 1000px) {
-  .game-overBox {
-    top: 27%;
-    left: 33%;
-    font-size: 3rem;
-  }
-  .playerBox {
-    height: 6rem;
-    width: 3rem;
-  }
-  .monsterBox {
-    height: 5rem;
-    width: 5rem;
-  }
-}
-
 /* Invisibility powerup */
-.invisibilityAni {
+.powerinv {
   animation: invisibility infinite 1.5s ease;
 }
 @keyframes invisibility {
@@ -162,5 +147,66 @@ body {
   }
   100% {
     opacity: 100%;
+  }
+}
+
+/* Flying powerup */
+.powerfly {
+  bottom: 16rem;
+}
+
+/* Animation */
+.bar {
+  animation: statbar 8s ease;
+  /* animation-play-state: running; */
+  overflow: hidden;
+}
+@keyframes statbar {
+  0% {
+    background-color: green;
+    width: 40%;
+    opacity: 1;
+  }
+  25% {
+    background-color: rgb(153, 238, 144);
+    opacity: 7;
+  }
+  50% {
+    background-color: rgb(255, 153, 0);
+    opacity: 4;
+  }
+  100% {
+    background-color: red;
+    width: 0%;
+    opacity: 0;
+  }
+}
+/* Status bar for Animating the status box */
+.statusbar {
+  position: absolute;
+  text-align: center;
+  top: 20%;
+  left: 25%;
+  /* border: 2px solid; */
+  overflow: hidden;
+  height: 5rem;
+  width: 43rem;
+  padding-left: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .messageBox {
+    top: 27%;
+    left: 33%;
+    font-size: 3rem;
+  }
+  .playerBox {
+    height: 6rem;
+    width: 3rem;
+  }
+  .monsterBox {
+    height: 5rem;
+    width: 5rem;
   }
 }

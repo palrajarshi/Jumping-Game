@@ -24,6 +24,9 @@
 // 14.Change Monster
 // 15.Fetch Highscore from localStorage when DOM is loaded
 // 16.Gameover Function
+// 17. Toggle Fly on power up
+// 17.1 Stop Fly function to stop flying
+// 17.2 Toggle Fly function called when powerup interacts with player
 
 // Code Section Starts here-->
 //1. Target Elements in the DOM
@@ -32,22 +35,26 @@ const pausebtn = document.getElementById("pausebtn");
 const scorebox = document.querySelector(".scoreBox");
 const player = document.getElementById("player");
 const monster = document.getElementById("monster");
-const gameover = document.querySelector(".game-overBox");
+const gameover = document.querySelector(".messageBox");
 const container = document.querySelector(".game-Container");
+const statusbox = document.querySelector(".statusbar");
+const bar = document.querySelector(".bar");
 
 //2. Audio
 const audio = document.getElementById("audio-start");
 const audio_over = document.getElementById("audio-over");
 const audio_jump = document.getElementById("audio-jump");
+const audio_fly = document.getElementById("audio-fly");
 
 //3. Array Images
 const arr = [
-  "images/qiqi.png",
-  "images/anemoslime.png",
-  "images/xiao1.jpg",
-  "images/monster.png",
-  "images/fungifly.jpg",
-  "images/fungi.jpg",
+  // "images/qiqi.png",
+  // "images/anemoslime.png",
+  // "images/xiao1.jpg",
+  // "images/monster.png",
+  // "images/fungifly.jpg",
+  // "images/fungi.jpg",
+  "images/powerfly.png",
 ];
 
 //4. Variable Declarations
@@ -56,6 +63,8 @@ let bgColTransparency = 0;
 let intervalID;
 let paused = true;
 let isAnimating = true;
+let onAir = false;
+let interval2;
 
 //5. Player Movement
 const movePlayer = (e) => {
@@ -83,21 +92,30 @@ const moveMonster = () => {
 pausebtn.disabled = true;
 pausebtn.addEventListener("click", () => {
   if (paused) {
+    console.log("Paused");
     clearInterval(intervalID);
     monster.classList.add("pause-animation");
     player.classList.add("pause-animation");
+    statusbox.style.animationPlayState = "paused";
     pausebtn.classList.add("color-btn");
     audio.pause();
+    audio_fly.pause();
     isAnimating = false;
     paused = false;
+    clearTimeout(interval2);
   } else {
     intervalID = setInterval(updateScore, 60);
     monster.classList.remove("pause-animation");
     player.classList.remove("pause-animation");
+    statusbox.style.animationPlayState = "running";
     pausebtn.classList.remove("color-btn");
     audio.play();
     isAnimating = true;
     paused = true;
+    interval2 = setTimeout(stopFly, 6000);
+    if (onAir) {
+      audio_fly.play();
+    }
   }
 });
 
@@ -154,7 +172,7 @@ const incDifficulty = (score) => {
     getComputedStyle(animateMonster).animationDuration
   );
   console.log("Monster Present classes: ", monster.classList);
-  if (monsterPosX > 1400 && monsterPosX < 1460) {
+  if (monsterPosX > 1400 && monsterPosX < 1490) {
     changeMonster();
     if (score >= 580) {
       console.log("score crossed 500");
@@ -223,11 +241,19 @@ const checkCollision = () => {
     getComputedStyle(monster).backgroundImage ===
       'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")'
   ) {
-    console.log("Adding Class incHeight")
+    console.log("Adding Class incHeight");
     monster.classList.add("incHeight");
     if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
+  } else if (
+    getComputedStyle(monster).backgroundImage ===
+      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/powerfly.png")' &&
+    posDiff >= 0 &&
+    posDiff < 60 &&
+    playerPosY < 115
+  ) {
+    toggleFly();
   } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
     gameOver();
   }
@@ -241,6 +267,7 @@ const changeMonster = () => {
     console.log("Removing class incHeight");
     monster.classList.remove("incHeight");
   }
+  monster.style.visibility = "visible";
   monsterPosX = Number.parseInt(getComputedStyle(monster).right);
   // console.log("posX", monsterPosX);
   let randInd = Math.floor(Math.random() * arr.length);
@@ -261,11 +288,54 @@ const gameOver = () => {
   monster.style.display = "none";
   console.log("Game over");
   clearInterval(intervalID);
+  gameover.innerHTML = "Game Over";
   gameover.style.opacity = "1";
+  statusbox.style.opacity = "1";
   audio.pause();
   audio_over.currentTime = 0;
   audio_over.play();
   monster.classList.remove("animateMonster");
   startbtn.disabled = false;
   pausebtn.disabled = true;
+};
+
+// 17. Toggle Fly on power up
+
+// 17.1 Stop Fly function to stop flying
+const stopFly = (e) => {
+  if (onAir || e.code === "KeyE") {
+    gameover.style.opacity = "0";
+    statusbox.style.opacity = "0";
+    isAnimating = true;
+    player.classList.remove("powerfly");
+    statusbox.classList.remove("bar");
+    audio_fly.pause();
+    onAir = false;
+  }
+};
+
+// 17.2 Toggle Fly function called when powerup interacts with player
+const toggleFly = () => {
+  onAir = true;
+  gameover.innerHTML = `Press E to land`;
+  console.log("Power up active");
+  audio_fly.currentTime = 0;
+  audio_fly.play();
+  monster.style.visibility = "hidden";
+  player.classList.add("powerfly");
+  statusbox.classList.add("bar");
+  isAnimating = false;
+  gameover.style.opacity = "1";
+  if (interval2) {
+    console.log("Cleared");
+    clearTimeout(interval2);
+  }
+
+  // Set a new timeout to stop flying after 6 seconds
+  interval2 = setTimeout(stopFly, 6000);
+  window.addEventListener("keydown", (e) => {
+    if (e.code === "KeyE") {
+      stopFly(e);
+    }
+  });
 };

@@ -12,9 +12,12 @@
       href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
     />
     <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Asap+Condensed:ital,wght@1,600&family=Bebas+Neue&family=Dancing+Script:wght@500&family=Josefin+Sans&family=Lato&family=Libre+Baskerville&family=Lilita+One&family=Pacifico&family=Quicksand:wght@500&family=Raleway:wght@500&family=Roboto+Slab&family=Rubik&family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Asap+Condensed:ital,wght@1,600&family=Bebas+Neue&family=Dancing+Script:wght@500&family=Josefin+Sans&family=Lato&family=Libre+Baskerville&family=Lilita+One&family=Pacifico&family=Quicksand:wght@500&family=Raleway:wght@500&family=Roboto+Slab&family=Rubik&family=Zilla+Slab:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="game-Container">
@@ -27,6 +30,7 @@
       <audio id="audio-over" src="mp3/gameover2.mp3" preload="auto"></audio>
       <audio id="audio-main" src="mp3/audiobg.mp3" loop preload="auto"></audio>
       <audio id="audio-jump" src="mp3/jump.mp3" preload="auto"></audio>
+      <audio id="audio-fly" src="mp3/powerflysound.mp3" preload="auto"></audio>
       <div id="btnbox">
         <button id="startbtn" class="btn">
           <i class="uil uil-play-circle"></i>
@@ -35,7 +39,9 @@
           <i class="uil uil-pause-circle"></i>
         </button>
       </div>
-      <div class="game-overBox">Game Over</div>
+      <div class="statusbar">
+        <div class="messageBox"></div>
+      </div>
       <div class="scoreBox"></div>
       <div id="player" class="playerBox"></div>
       <div id="monster" class="monsterBox"></div>
