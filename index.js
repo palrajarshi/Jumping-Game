@@ -32,13 +32,20 @@
 //1. Target Elements in the DOM
 const startbtn = document.getElementById("startbtn");
 const pausebtn = document.getElementById("pausebtn");
+const menubtn = document.getElementById("menubtn");
+const cancelbtn = document.getElementById("btn-cancel");
+const btnleft = document.getElementById("btn-left");
+const btnright = document.getElementById("btn-right");
+const btnsel = document.getElementById("btnsel");
 const scorebox = document.querySelector(".scoreBox");
 const player = document.getElementById("player");
 const monster = document.getElementById("monster");
 const gameover = document.querySelector(".messageBox");
 const container = document.querySelector(".game-Container");
+const menubox = document.querySelector(".container");
 const statusbox = document.querySelector(".statusbar");
 const bar = document.querySelector(".bar");
+const img = document.querySelector(".img-box img");
 
 //2. Audio
 const audio = document.getElementById("audio-start");
@@ -225,14 +232,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  console.log("Monster X", monsterPosX);
-  console.log("Monster Y", monsterPosY);
-  console.log("Player X", playerPosX);
-  console.log("Player Y", playerPosY);
+  // console.log("Monster X", monsterPosX);
+  // console.log("Monster Y", monsterPosY);
+  // console.log("Player X", playerPosX);
+  // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  console.log("PosDiff", posDiff);
+  // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -304,6 +311,7 @@ const gameOver = () => {
 // 17.1 Stop Fly function to stop flying
 const stopFly = (e) => {
   if (onAir || e.code === "KeyE") {
+    console.log(e);
     gameover.style.opacity = "0";
     statusbox.style.opacity = "0";
     isAnimating = true;
@@ -339,3 +347,47 @@ const toggleFly = () => {
     }
   });
 };
+
+// 18. Background and Character Change
+
+// 18.1 Array and Index declaration
+let index = 0;
+const bgarr = [
+  "images/bg.png",
+  "images/bg1.jpg",
+  "images/bgimg2.jpg",
+  "images/bgimg1.jpg",
+];
+
+// 18.2 Menu Button
+menubtn.addEventListener("click", () => {
+  menubox.style.transform = "translateY(0)";
+});
+
+// 18.3 Cancel Button
+cancelbtn.addEventListener("click", () => {
+  menubox.style.transform = "translateY(-100%)";
+});
+
+// 18.4 Change Bg options: (left/ next)
+btnright.addEventListener("click", () => {
+  index = (index + 1) % bgarr.length;
+  img.src = bgarr[index];
+  console.log("right click, index: ", index);
+});
+
+// 18.5 Change bg options: (left/ previous)
+btnleft.addEventListener("click", () => {
+  index = index - 1;
+  if (index < 0) {
+    index = bgarr.length - 1;
+    console.log(index);
+  }
+  img.src = bgarr[index];
+  console.log("left click, index: ", index);
+});
+
+// Select bg(using css variable)
+btnsel.addEventListener("click", () => {
+  container.style.setProperty("--myvariable", `url(${bgarr[index]})`);
+});

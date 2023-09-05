@@ -339,3 +339,47 @@ const toggleFly = () => {
     }
   });
 };
+
+// 18. Background and Character Change
+
+// 18.1 Array and Index declaration
+let index = 0;
+const bgarr = [
+  "images/bg.png",
+  "images/bg1.jpg",
+  "images/bgimg2.jpg",
+  "images/bgimg1.jpg",
+];
+
+// 18.2 Menu Button
+menubtn.addEventListener("click", () => {
+  menubox.style.transform = "translateY(0)";
+});
+
+// 18.3 Cancel Button
+cancelbtn.addEventListener("click", () => {
+  menubox.style.transform = "translateY(-100%)";
+});
+
+// 18.4 Change Bg options: (left/ next)
+btnright.addEventListener("click", () => {
+  index = (index + 1) % bgarr.length;
+  img.src = bgarr[index];
+  console.log("right click, index: ", index);
+});
+
+// 18.5 Change bg options: (left/ previous)
+btnleft.addEventListener("click", () => {
+  index = index - 1;
+  if (index < 0) {
+    index = bgarr.length - 1;
+    console.log(index);
+  }
+  img.src = bgarr[index];
+  console.log("left click, index: ", index);
+});
+
+// Select bg(using css variable)
+btnsel.addEventListener("click", () => {
+  container.style.setProperty("--myvariable", `url(${bgarr[index]})`);
+});
