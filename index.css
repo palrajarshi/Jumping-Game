@@ -88,7 +88,7 @@ body {
   right: 1rem;
 }
 .animatePlayer {
-  animation: playerAni 1s ease-in-out;
+  animation: playerAni 1.2s ease-in-out;
 }
 
 @keyframes playerAni {
@@ -96,7 +96,7 @@ body {
     bottom: 0rem;
   }
   50% {
-    bottom: 10rem;
+    bottom: 12rem;
   }
   100% {
     bottom: 0rem;

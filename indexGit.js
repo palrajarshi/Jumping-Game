@@ -85,7 +85,7 @@ const movePlayer = (e) => {
       setTimeout(() => {
         player.classList.remove("animatePlayer");
         isAnimating = true;
-      }, 1005);
+      }, 1205);
     }
   }
 };
