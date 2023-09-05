@@ -1,3 +1,31 @@
+// Sections:
+// 1. Target Elements in the DOM
+// 2. Audio
+// 3. Array Images
+// 4. Variable Declarations
+// 5. Player Movement
+// 6. Monster Movement
+// 7. Pause Btn
+// 8. Start Btn
+// 8.1 Reset score, bgtransparency
+// 8.2 Stop Gameover music and hide Gameover text
+// 8.3 Disable Start btn and enable pause btn upon click
+// 8.4 Update the Score
+// 8.5 Player Movement enabled
+// 8.6 Monster Starts Moving
+// 9. Add noon effect
+// 10. Increase Difficulty
+// 11. Set High Score and Update it inside HTML
+// 12. Updates Score
+// 13. Check for Collision
+// 13.1 Computed Positions of Monster and Player
+// 13.2 Position difference between player and monster
+// 13.3 Check Gameover for diff monsters
+// 14.Change Monster
+// 15.Fetch Highscore from localStorage when DOM is loaded
+// 16.Gameover Function
+
+// Code Section Starts here-->
 //1. Target Elements in the DOM
 const startbtn = document.getElementById("startbtn");
 const pausebtn = document.getElementById("pausebtn");
@@ -195,7 +223,6 @@ const checkCollision = () => {
     getComputedStyle(monster).backgroundImage ===
       'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")'
   ) {
-    console.log("Flying Object");
     monster.classList.add("incHeight");
     if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();

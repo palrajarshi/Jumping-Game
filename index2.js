@@ -1,3 +1,31 @@
+// Sections:
+// 1. Target Elements in the DOM
+// 2. Audio
+// 3. Array Images
+// 4. Variable Declarations
+// 5. Player Movement
+// 6. Monster Movement
+// 7. Pause Btn
+// 8. Start Btn
+// 8.1 Reset score, bgtransparency
+// 8.2 Stop Gameover music and hide Gameover text
+// 8.3 Disable Start btn and enable pause btn upon click
+// 8.4 Update the Score
+// 8.5 Player Movement enabled
+// 8.6 Monster Starts Moving
+// 9. Add noon effect
+// 10. Increase Difficulty
+// 11. Set High Score and Update it inside HTML
+// 12. Updates Score
+// 13. Check for Collision
+// 13.1 Computed Positions of Monster and Player
+// 13.2 Position difference between player and monster
+// 13.3 Check Gameover for diff monsters
+// 14.Change Monster
+// 15.Fetch Highscore from localStorage when DOM is loaded
+// 16.Gameover Function
+
+// Code Section Starts here-->
 //1. Target Elements in the DOM
 const startbtn = document.getElementById("startbtn");
 const pausebtn = document.getElementById("pausebtn");
@@ -121,19 +149,23 @@ const incDifficulty = (score) => {
   );
   new_dur = ani_dur;
   new_dur -= 0.1;
-  console.log("Present Animation Duration(Mons)/Normal: ", getComputedStyle(animateMonster).animationDuration);
-  if (monsterPosX > 1400 && monsterPosX < 1440) {
+  console.log(
+    "Present Animation Duration(Mons)/Normal: ",
+    getComputedStyle(animateMonster).animationDuration
+  );
+  console.log("Monster Present classes: ", monster.classList);
+  if (monsterPosX > 1400 && monsterPosX < 1460) {
     changeMonster();
-    if(score >= 510){
-      console.log("score crossed 500")
+    if (score >= 580) {
+      console.log("score crossed 500");
       animateMonster.style.animationDuration = `2.5s`;
     }
-    if(score >= 810){
-      console.log("score crossed 760")
+    if (score >= 810) {
+      console.log("score crossed 760");
       animateMonster.style.animationDuration = `2s`;
     }
-    if(score > 1250){
-      console.log("score crossed 1200")
+    if (score >= 1200) {
+      console.log("score crossed 1200");
       animateMonster.style.animationDuration = `1.5s`;
     }
     if (new_dur >= 2.9) {
@@ -175,14 +207,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  console.log("Monster X", monsterPosX);
-  console.log("Monster Y", monsterPosY);
-  console.log("Player X", playerPosX);
-  console.log("Player Y", playerPosY);
+  // console.log("Monster X", monsterPosX);
+  // console.log("Monster Y", monsterPosY);
+  // console.log("Player X", playerPosX);
+  // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  console.log("PosDiff", posDiff);
+  // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -191,7 +223,6 @@ const checkCollision = () => {
     getComputedStyle(monster).backgroundImage ===
       'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")'
   ) {
-    console.log("Flying Object");
     monster.classList.add("incHeight");
     if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
