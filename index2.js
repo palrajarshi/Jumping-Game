@@ -48,12 +48,12 @@ const audio_fly = document.getElementById("audio-fly");
 
 //3. Array Images
 const arr = [
-  // "images/qiqi.png",
-  // "images/anemoslime.png",
-  // "images/xiao1.jpg",
-  // "images/monster.png",
-  // "images/fungifly.jpg",
-  // "images/fungi.jpg",
+  "images/qiqi.png",
+  "images/anemoslime.png",
+  "images/xiao1.jpg",
+  "images/monster.png",
+  "images/fungifly.jpg",
+  "images/fungi.jpg",
   "images/powerfly.png",
 ];
 
@@ -235,11 +235,12 @@ const checkCollision = () => {
   // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
+  
   if (
     getComputedStyle(monster).backgroundImage ===
-      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/anemoslime.png")' ||
+    'url("https://palrajarshi.github.io/Jumping-Game/images/anemoslime.png")' ||
     getComputedStyle(monster).backgroundImage ===
-      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")'
+    'url("https://palrajarshi.github.io/Jumping-Game/images/fungifly.jpg")'
   ) {
     console.log("Adding Class incHeight");
     monster.classList.add("incHeight");
@@ -248,7 +249,7 @@ const checkCollision = () => {
     }
   } else if (
     getComputedStyle(monster).backgroundImage ===
-      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/powerfly.png")' &&
+    'url("https://palrajarshi.github.io/Jumping-Game/images/powerfly.png")' &&
     posDiff >= 0 &&
     posDiff < 60 &&
     playerPosY < 115
@@ -317,7 +318,7 @@ const stopFly = (e) => {
 // 17.2 Toggle Fly function called when powerup interacts with player
 const toggleFly = () => {
   onAir = true;
-  gameover.innerHTML = `Press any key to land`;
+  gameover.innerHTML = `Press E to land`;
   console.log("Power up active");
   audio_fly.currentTime = 0;
   audio_fly.play();

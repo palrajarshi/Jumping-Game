@@ -171,7 +171,7 @@ const incDifficulty = (score) => {
     "Present Animation Duration(Mons)/Normal: ",
     getComputedStyle(animateMonster).animationDuration
   );
-  console.log("Monster Present classes: ", monster.classList);
+  // console.log("Monster Present classes: ", monster.classList);
   if (monsterPosX > 1400 && monsterPosX < 1490) {
     changeMonster();
     if (score >= 580) {
@@ -225,37 +225,36 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  // console.log("Monster X", monsterPosX);
-  // console.log("Monster Y", monsterPosY);
-  // console.log("Player X", playerPosX);
-  // console.log("Player Y", playerPosY);
+  console.log("Monster X", monsterPosX);
+  console.log("Monster Y", monsterPosY);
+  console.log("Player X", playerPosX);
+  console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  // console.log("PosDiff", posDiff);
+  console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
-  
   if (
     getComputedStyle(monster).backgroundImage ===
-    'url("https://palrajarshi.github.io/Jumping-Game/images/anemoslime.png")' ||
+      'url("https://palrajarshi.github.io/Jumping-Game/images/anemoslime.png")' ||
     getComputedStyle(monster).backgroundImage ===
-    'url("https://palrajarshi.github.io/Jumping-Game/images/fungifly.jpg")'
+      'url("https://palrajarshi.github.io/Jumping-Game/images/fungifly.jpg")'
   ) {
     console.log("Adding Class incHeight");
     monster.classList.add("incHeight");
-    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
+    if (posDiff >= 0 && posDiff < 80 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
   } else if (
     getComputedStyle(monster).backgroundImage ===
-    'url("https://palrajarshi.github.io/Jumping-Game/images/powerfly.png")' &&
+      'url("https://palrajarshi.github.io/Jumping-Game/images/powerfly.png")' &&
     posDiff >= 0 &&
-    posDiff < 60 &&
-    playerPosY < 115
+    posDiff < 80 &&
+    playerPosY < 125
   ) {
     toggleFly();
-  } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
+  } else if (posDiff >= 0 && posDiff < 80 && playerPosY < 125) {
     gameOver();
   }
 };
@@ -319,7 +318,7 @@ const stopFly = (e) => {
 const toggleFly = () => {
   onAir = true;
   gameover.innerHTML = `Press E to land`;
-  console.log("Power up active");
+  // console.log("Power up active");
   audio_fly.currentTime = 0;
   audio_fly.play();
   monster.style.visibility = "hidden";
@@ -328,7 +327,7 @@ const toggleFly = () => {
   isAnimating = false;
   gameover.style.opacity = "1";
   if (interval2) {
-    console.log("Cleared");
+    // console.log("Cleared");
     clearTimeout(interval2);
   }
 

@@ -243,18 +243,18 @@ const checkCollision = () => {
   ) {
     console.log("Adding Class incHeight");
     monster.classList.add("incHeight");
-    if (posDiff >= 0 && posDiff < 60 && playerPosY >= 30 && playerPosY < 256) {
+    if (posDiff >= 0 && posDiff < 80 && playerPosY >= 30 && playerPosY < 256) {
       gameOver();
     }
   } else if (
     getComputedStyle(monster).backgroundImage ===
       'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/powerfly.png")' &&
     posDiff >= 0 &&
-    posDiff < 60 &&
-    playerPosY < 115
+    posDiff < 80 &&
+    playerPosY < 125
   ) {
     toggleFly();
-  } else if (posDiff >= 0 && posDiff < 60 && playerPosY < 115) {
+  } else if (posDiff >= 0 && posDiff < 80 && playerPosY < 125) {
     gameOver();
   }
 };
