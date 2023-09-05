@@ -48,12 +48,12 @@ const audio_fly = document.getElementById("audio-fly");
 
 //3. Array Images
 const arr = [
-  // "images/qiqi.png",
-  // "images/anemoslime.png",
-  // "images/xiao1.jpg",
-  // "images/monster.png",
-  // "images/fungifly.jpg",
-  // "images/fungi.jpg",
+  "images/qiqi.png",
+  "images/anemoslime.png",
+  "images/xiao1.jpg",
+  "images/monster.png",
+  "images/fungifly.jpg",
+  "images/fungi.jpg",
   "images/powerfly.png",
 ];
 
