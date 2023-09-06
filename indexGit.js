@@ -369,11 +369,13 @@ const toggleFly = () => {
 };
 
 // 18. Background and Character Change
-// const addunderline = document.querySelector(".add-underline");
+
 const titleBg = document.querySelector(".title-bg");
 const titleChar = document.querySelector(".title-char");
 let bgwindow = true;
-// 18.1 Array and Index declaration
+
+// 18.1 Index and Array declaration
+
 let index = 0;
 let indChar = 0;
 const bgarr = [
@@ -384,9 +386,10 @@ const bgarr = [
 ];
 const charArr = [
   "images/player.png",
-  "images/yanfei.png",
+  "images/ganyu.png",
   "images/zhongli.png",
   "images/barbara.png",
+  "images/chongyun.png",
 ];
 
 // 18.2 Menu Button

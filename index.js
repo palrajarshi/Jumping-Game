@@ -37,6 +37,8 @@
 // 18.6 Select bg(using css variable)
 // 18.7 Set index to local Storage upon bg Selection
 // 18.8 Get selected index from local storage
+// ===> 18.8.1 Load Images
+// 18.9 Toggle between Titlebg and Char
 
 // Code Section Starts here-->
 //1. Target Elements in the DOM
@@ -381,9 +383,10 @@ const bgarr = [
 ];
 const charArr = [
   "images/player.png",
-  "images/yanfei.png",
+  "images/ganyu.png",
   "images/zhongli.png",
   "images/barbara.png",
+  "images/chongyun.png",
 ];
 
 // 18.2 Menu Button
