@@ -39,6 +39,9 @@ body {
   height: 4rem;
   width: 4rem;
 }
+.btn:active {
+  color: aquamarine;
+}
 .game-Container {
   display: flex;
   height: 100vh;
@@ -74,7 +77,7 @@ body {
   background-position: center;
   position: absolute;
   bottom: 0rem;
-  transition: bottom 0.7s ease;
+  transition: all 0.7s ease;
   /* bottom: 16rem; */
   left: 9rem;
 }
@@ -264,14 +267,14 @@ body {
   font-size: 1.4rem;
   border: none;
   color: white;
-  background-color: aquamarine;
+  background-color: #e8204c;
   border-radius: 1rem;
   height: 2.5rem;
   width: 7rem;
   box-shadow: 3px 3px rgb(191 180 180 / 21%);
 }
 .btn-sel:active{
- background-color: red;
+ background-color: aquamarine;
 }
 
 /* Responsive */
