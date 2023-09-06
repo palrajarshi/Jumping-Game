@@ -27,6 +27,16 @@
 // 17. Toggle Fly on power up
 // 17.1 Stop Fly function to stop flying
 // 17.2 Toggle Fly function called when powerup interacts with player
+// 17.3 Set a new timeout to stop flying after 6 seconds
+// 18. Background and Character Change
+// 18.1 Array and Index declaration
+// 18.2 Menu Button
+// 18.3 Cancel Button
+// 18.4 Change Bg options: (left/ next)
+// 18.5 Change bg options: (left/ previous)
+// 18.6 Select bg(using css variable)
+// 18.7 Set index to local Storage upon bg Selection
+// 18.8 Get selected index from local storage
 
 // Code Section Starts here-->
 //1. Target Elements in the DOM
@@ -62,6 +72,7 @@ const arr = [
   "images/fungifly.jpg",
   "images/fungi.jpg",
   "images/powerfly.png",
+  "images/paimon.jpg",
 ];
 
 //4. Variable Declarations
@@ -85,7 +96,7 @@ const movePlayer = (e) => {
       setTimeout(() => {
         player.classList.remove("animatePlayer");
         isAnimating = true;
-      }, 1005);
+      }, 1205);
     }
   }
 };
@@ -142,6 +153,7 @@ startbtn.addEventListener("click", () => {
   //8.3 Disable Start btn and enable pause btn upon click
   startbtn.disabled = true;
   pausebtn.disabled = false;
+  menubtn.disabled = true;
 
   //8.4 Update the Score
   intervalID = setInterval(updateScore, 60);
@@ -150,6 +162,7 @@ startbtn.addEventListener("click", () => {
   audio.play();
 
   //8.5 Player Movement enabled
+  isAnimating = true;
   window.addEventListener("keydown", movePlayer);
 
   //8.6 Monster Starts Moving
@@ -246,7 +259,9 @@ const checkCollision = () => {
     getComputedStyle(monster).backgroundImage ===
       'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/anemoslime.png")' ||
     getComputedStyle(monster).backgroundImage ===
-      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")'
+      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/fungifly.jpg")' ||
+    getComputedStyle(monster).backgroundImage ===
+      'url("http://127.0.0.1:5500/HTML%20CSS%20JAVASCRIPT/Game/images/paimon.jpg")'
   ) {
     console.log("Adding Class incHeight");
     monster.classList.add("incHeight");
@@ -304,6 +319,8 @@ const gameOver = () => {
   monster.classList.remove("animateMonster");
   startbtn.disabled = false;
   pausebtn.disabled = true;
+  menubtn.disabled = false;
+  isAnimating = false;
 };
 
 // 17. Toggle Fly on power up
@@ -339,7 +356,7 @@ const toggleFly = () => {
     clearTimeout(interval2);
   }
 
-  // Set a new timeout to stop flying after 6 seconds
+  // 17.3 Set a new timeout to stop flying after 6 seconds
   interval2 = setTimeout(stopFly, 6000);
   window.addEventListener("keydown", (e) => {
     if (e.code === "KeyE") {
@@ -349,45 +366,111 @@ const toggleFly = () => {
 };
 
 // 18. Background and Character Change
-
+// const addunderline = document.querySelector(".add-underline");
+const titleBg = document.querySelector(".title-bg");
+const titleChar = document.querySelector(".title-char");
+let bgwindow = true;
 // 18.1 Array and Index declaration
 let index = 0;
+let indChar = 0;
 const bgarr = [
   "images/bg.png",
   "images/bg1.jpg",
   "images/bgimg2.jpg",
   "images/bgimg1.jpg",
 ];
+const charArr = [
+  "images/player.png",
+  "images/yanfei.png",
+  "images/zhongli.png",
+  "images/barbara.png",
+];
 
 // 18.2 Menu Button
 menubtn.addEventListener("click", () => {
-  menubox.style.transform = "translateY(0)";
+  if (bgwindow) {
+    img.src = "images/bg.png";
+    console.log("Hellow");
+    titleBg.classList.add("add-underline");
+  }
+  startbtn.disabled = true;
+  menubox.style.transform = "translateY(20%)";
 });
 
 // 18.3 Cancel Button
 cancelbtn.addEventListener("click", () => {
+  startbtn.disabled = false;
   menubox.style.transform = "translateY(-100%)";
 });
 
 // 18.4 Change Bg options: (left/ next)
 btnright.addEventListener("click", () => {
-  index = (index + 1) % bgarr.length;
-  img.src = bgarr[index];
-  console.log("right click, index: ", index);
+  if (bgwindow) {
+    index = (index + 1) % bgarr.length;
+    img.src = bgarr[index];
+    console.log("right click, index: ", index);
+  } else {
+    indChar = (indChar + 1) % charArr.length;
+    img.src = charArr[indChar];
+    console.log("right click, index: ", indChar);
+  }
 });
 
 // 18.5 Change bg options: (left/ previous)
 btnleft.addEventListener("click", () => {
-  index = index - 1;
-  if (index < 0) {
-    index = bgarr.length - 1;
-    console.log(index);
+  if (bgwindow) {
+    index = index - 1;
+    if (index < 0) {
+      index = bgarr.length - 1;
+      console.log(index);
+    }
+    img.src = bgarr[index];
+    console.log("left click, index: ", index);
+  } else {
+    indChar = indChar - 1;
+    if (indChar < 0) {
+      indChar = charArr.length - 1;
+      console.log(indChar);
+    }
+    img.src = charArr[indChar];
+    console.log("left click, index: ", indChar);
   }
-  img.src = bgarr[index];
-  console.log("left click, index: ", index);
 });
 
-// Select bg(using css variable)
+//18.6 Select bg(using css variable) or Character
+
 btnsel.addEventListener("click", () => {
-  container.style.setProperty("--myvariable", `url(${bgarr[index]})`);
+  if (bgwindow) {
+    //18.7 Set index to local Storage upon bg Selection
+    localStorage.setItem("indexBg", JSON.stringify(index));
+    console.log(localStorage);
+    container.style.setProperty("--myvariable", `url(${bgarr[index]})`);
+  }else{
+    localStorage.setItem("indexChar", JSON.stringify(indChar));
+    console.log(localStorage);
+    player.style.backgroundImage =`url(${charArr[indChar]})`;
+  }
+});
+
+//18.8 Get selected index from local storage
+const getBg = JSON.parse(localStorage.getItem("indexBg")) || 0;
+const getChar = JSON.parse(localStorage.getItem("indexChar")) || 0;
+window.addEventListener("DOMContentLoaded", () => {
+  container.style.setProperty("--myvariable", `url(${bgarr[getBg]})`);
+  player.style.backgroundImage =`url(${charArr[getChar]})`;
+});
+
+// 18.9 Toggle between titlebg and char
+
+titleBg.addEventListener("click", () => {
+  img.src = `${bgarr[index]}`;
+  bgwindow = true;
+  titleBg.classList.add("add-underline");
+  titleChar.classList.remove("add-underline");
+});
+titleChar.addEventListener("click", () => {
+  img.src = `${charArr[indChar]}`;
+  bgwindow = false;
+  titleBg.classList.remove("add-underline");
+  titleChar.classList.add("add-underline");
 });

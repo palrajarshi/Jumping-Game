@@ -32,13 +32,20 @@
 //1. Target Elements in the DOM
 const startbtn = document.getElementById("startbtn");
 const pausebtn = document.getElementById("pausebtn");
+const menubtn = document.getElementById("menubtn");
+const cancelbtn = document.getElementById("btn-cancel");
+const btnleft = document.getElementById("btn-left");
+const btnright = document.getElementById("btn-right");
+const btnsel = document.getElementById("btnsel");
 const scorebox = document.querySelector(".scoreBox");
 const player = document.getElementById("player");
 const monster = document.getElementById("monster");
 const gameover = document.querySelector(".messageBox");
 const container = document.querySelector(".game-Container");
+const menubox = document.querySelector(".container");
 const statusbox = document.querySelector(".statusbar");
 const bar = document.querySelector(".bar");
+const img = document.querySelector(".img-box img");
 
 //2. Audio
 const audio = document.getElementById("audio-start");
@@ -78,7 +85,7 @@ const movePlayer = (e) => {
       setTimeout(() => {
         player.classList.remove("animatePlayer");
         isAnimating = true;
-      }, 1005);
+      }, 1205);
     }
   }
 };
@@ -225,14 +232,14 @@ const checkCollision = () => {
   playerPosX = Number.parseInt(getComputedStyle(player).right);
   playerPosY = Number.parseInt(getComputedStyle(player).bottom);
 
-  console.log("Monster X", monsterPosX);
-  console.log("Monster Y", monsterPosY);
-  console.log("Player X", playerPosX);
-  console.log("Player Y", playerPosY);
+  // console.log("Monster X", monsterPosX);
+  // console.log("Monster Y", monsterPosY);
+  // console.log("Player X", playerPosX);
+  // console.log("Player Y", playerPosY);
 
   //13.2 Position difference between player and monster
   posDiff = Math.abs(playerPosX - monsterPosX);
-  console.log("PosDiff", posDiff);
+  // console.log("PosDiff", posDiff);
 
   //13.3 Check Gameover for diff monsters
   if (
@@ -248,7 +255,7 @@ const checkCollision = () => {
     }
   } else if (
     getComputedStyle(monster).backgroundImage ===
-      'url("https://palrajarshi.github.io/Jumping-Game/images/powerfly.png")' &&
+    'url("https://palrajarshi.github.io/Jumping-Game/images/powerfly.png")' &&
     posDiff >= 0 &&
     posDiff < 80 &&
     playerPosY < 125
@@ -304,6 +311,7 @@ const gameOver = () => {
 // 17.1 Stop Fly function to stop flying
 const stopFly = (e) => {
   if (onAir || e.code === "KeyE") {
+    console.log(e);
     gameover.style.opacity = "0";
     statusbox.style.opacity = "0";
     isAnimating = true;

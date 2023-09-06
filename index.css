@@ -15,13 +15,14 @@ body {
   z-index: -1;
   opacity: 0.8;
   /* var(--variablename, defaultvalue) */
-  background-image: var(--myvariable, url(images/bg.png));
+  background-image: var(--myvariable);
   height: 100vh;
   width: 100vw;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   transition: background-image 1s ease;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
 }
 
 #btnbox {
@@ -34,7 +35,7 @@ body {
   font-size: 3rem;
   border: none;
   background: transparent;
-  color: white;
+  color: #e8204c;
   height: 4rem;
   width: 4rem;
 }
@@ -121,7 +122,7 @@ body {
   animation-play-state: paused;
 }
 .color-btn {
-  color: red;
+  color: #e900ff;
 }
 
 /* Increases Height of the Monsters (Added Dynamically */
@@ -147,7 +148,7 @@ body {
 
 /* Flying powerup */
 .powerfly {
-  bottom: 16rem;
+  bottom: 18rem;
 }
 
 /* Animation */
@@ -189,11 +190,8 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  background: black;
-  height: 400rem;
-  width: 200rem;
+  background: #0d0d0da8;
   position: absolute;
   height: 60%;
   width: 50%;
@@ -212,7 +210,7 @@ body {
 #btn-left {
   position: absolute;
   top: 45%;
-  left: 0;
+  left: 2%;
 }
 #btn-right {
   position: absolute;
@@ -222,32 +220,38 @@ body {
 
 /* container items */
 .title-box {
+  cursor: pointer;
   display: flex;
   align-items: center;
   color: white;
   /* border: 2px solid white; */
-  height: 20%;
+  height: 15%;
   width: 80%;
   border-radius: 1rem;
+  /* transition: all 0.6s ease; */
 }
-.title-box h2 {
-  padding-left: 0.8rem;
+.title-char {
+  margin-left: 0.8rem;
+}
+.add-underline{
+  border-bottom: 0.2rem solid red;
 }
 .img-box {
   /* border: 2px solid yellow; */
-  height: 60%;
+  height: 70%;
   width: 80%;
+  overflow: hidden;
+  border-radius: 1rem;
 }
 .img-box img {
-  object-fit: cover;
+  object-fit: contain;
   height: 100%;
   width: 100%;
-  transition: all 0.6s ease-in-out;
 }
 .btncont-box {
   width: 100%;
   /* border: 2px solid white; */
-  height: 20%;
+  height: 15%;
   border-radius: 1rem;
   display: flex;
   flex-direction: row-reverse;
@@ -257,13 +261,17 @@ body {
 .btn-sel {
   font-family: "Lato", sans-serif;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   border: none;
   color: white;
   background-color: aquamarine;
   border-radius: 1rem;
-  height: 3rem;
-  width: 8rem;
+  height: 2.5rem;
+  width: 7rem;
+  box-shadow: 3px 3px rgb(191 180 180 / 21%);
+}
+.btn-sel:active{
+ background-color: red;
 }
 
 /* Responsive */
